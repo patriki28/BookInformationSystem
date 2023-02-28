@@ -51,13 +51,10 @@ namespace BookInformationSystem.Controllers
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity), properties);
 
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ViewData["ValidateMessage"] = "user not found";
-                    }
-                    
+                        ClaimsPrincipal claimUser = HttpContext.User;
+                        if(claimUser.Identity.IsAuthenticated)
+                            return RedirectToAction("GetAll", "Book");
+                    }  
                 }
             } 
 
