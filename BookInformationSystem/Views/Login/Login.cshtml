@@ -8,10 +8,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BookInformationSystem</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BookInformationSystem.styles.css" asp-append-version="true" />
+    <link rel="icon" href="~/images/logo.png" type="image/icon type">
+
+    <title>Book Information System</title>
 </head>
 <body class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-center">
     <div class="d-flex justify-content-center mb-4 mb-md-0 mr-md-4">
@@ -31,7 +34,7 @@
 
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" placeholder="Password" />
+                <input type="password" asp-for="Password" class="form-control" placeholder="Password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 

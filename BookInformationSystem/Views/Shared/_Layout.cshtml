@@ -3,47 +3,89 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BookInformationSystem</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BookInformationSystem.styles.css" asp-append-version="true" />
+    <title>Book Information System</title>
+    <link rel="icon" href="~/images/logo.png" type="image/icon type">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/styles.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookInformationSystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                         <li class="nav-item">
-                           <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom">
+                <img class="logo-img" src="~/images/logo.png" alt="PAID logo" width="50" height="50">
+                Mr.Bookie
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <div class="list-group list-group-flush ">
+                <a class="nav-link text-black" href="/Book/GetAll">
+                    <i class="bi bi-book-fill p-2"></i>
+                    Books
+                </a>
+                <a class="nav-link text-black" href="/Author/GetAll">
+                    <i class="bi bi-pen-fill p-2"></i>
+                    Author</a>
+                <a class="nav-link text-black" href="/Publisher/GetAll">
+                    <i class="bi bi-people-fill p-2"></i>
+                    Publisher
+                </a>
+                <a class="nav-link text-black" href="/Genre/GetAll">
+                    <i class="bi bi-bookmark-fill p-2"></i>
+                    Genre</a>
+                <a class="nav-link text-black" onclick="return window.confirm('Are you sure you want to logout?')" asp-area="" asp-controller="Home" asp-action="Logout">
+                    <i class="bi bi-door-open-fill p-2"></i>
+                    Logout</a>
+
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light  border-bottom p3">
+                <div class="container-fluid d-flex justify-content-between align-items-left">
+                    <div class="container  d-flex justify-content-between align-items-left">
+
+                        <button class="btn btn-dark" id="sidebarToggle">
+                            <i class="bi bi-list"></i>
+                        </button>
+
+
+                        <h3>Admin Dashboard</h3>
+
+                    </div>
+
+
+
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="container-fluid">
+                @RenderBody()
+
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - BookInformationSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+
+            const sidebarToggle = document.body.querySelector('#sidebarToggle');
+            if (sidebarToggle) {
+
+                sidebarToggle.addEventListener('click', event => {
+                    event.preventDefault();
+                    document.body.classList.toggle('sb-sidenav-toggled');
+                    localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+                });
+            }
+
+        });
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

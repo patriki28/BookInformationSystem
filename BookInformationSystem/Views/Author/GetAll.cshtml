@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BookInformationSystem.Models.Domain.Author>
+@{
+}
+
+       
+<div class="container pt-5">
+    <div class="row p-3">
+        <div class="col-8 text-left">
+            <h3>Author</h3>
+        </div>
+        <div class="col-4 text-right">
+            <a class="btn btn-dark" href="/Author/Add">+ Add More</a>
+        </div>
+    </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th>Author Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.AuthorName</td>
+                                <td>
+                                    <a class="btn btn-success" href="/Author/Update?id=@item.Id"><i class="bi bi-pen"></i> </a>
+                                    <a class="btn btn-danger" onclick="return window.confirm('Are you sure?')" href="/Author/Delete?id=@item.Id">
+                                        <i class="bi bi-trash"></i>
+
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+                
+
+        </div>

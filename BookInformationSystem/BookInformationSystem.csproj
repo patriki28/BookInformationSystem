@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Author\" />
+    <Folder Include="Views\Book\" />
+    <Folder Include="Views\Genre\" />
+    <Folder Include="Views\Publisher\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
