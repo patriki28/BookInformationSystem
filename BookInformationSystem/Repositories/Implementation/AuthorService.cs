@@ -1,5 +1,6 @@
 ﻿using BookInformationSystem.Models.Domain;
 using BookInformationSystem.Repositories.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookInformationSystem.Repositories.Implementation
 {
@@ -48,7 +49,8 @@ namespace BookInformationSystem.Repositories.Implementation
 
         public IEnumerable<Author> GetAll()
         {
-            return context.Author.ToList();
+            var author = from m in context.Author select m;
+            return author;
         }
 
         public bool Update(Author model)

@@ -12,6 +12,12 @@
         <div class="col-4 text-right">
             <a class="btn btn-dark" href="/Book/Add">+ Add More</a>
         </div>
+        <form asp-controller="Book" asp-action="GetAll">
+            <p>
+                <input type="text" name="SearchString" />
+                <input type="submit" value="Search" />
+            </p>
+        </form>
     </div>
 
             <div class="table-responsive">

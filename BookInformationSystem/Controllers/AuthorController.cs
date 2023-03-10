@@ -3,6 +3,7 @@ using BookInformationSystem.Repositories.Abstract;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookInformationSystem.Controllers
 {
@@ -67,11 +68,18 @@ namespace BookInformationSystem.Controllers
             return RedirectToAction("GetAll");
         }
 
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll( string searchString)
         {
+            var author = service.GetAll();
 
-            var data = service.GetAll();
-            return View(data);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                author = author.Where(s => s.AuthorName!.Contains(searchString));
+            }
+
+          
+
+            return View(author.OrderBy(s => s.AuthorName).ToList());
         }
     }
 }

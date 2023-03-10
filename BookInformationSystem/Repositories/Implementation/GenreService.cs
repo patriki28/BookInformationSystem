@@ -48,7 +48,8 @@ namespace BookInformationSystem.Repositories.Implementation
 
         public IEnumerable<Genre> GetAll()
         {
-            return context.Genre.ToList();
+            var genre = from m in context.Genre select m;
+            return genre;
         }
 
         public bool Update(Genre model)

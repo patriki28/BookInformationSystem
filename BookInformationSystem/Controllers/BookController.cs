@@ -87,11 +87,15 @@ namespace BookInformationSystem.Controllers
             return RedirectToAction("GetAll");
         }
 
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll(string searchString)
         {
 
-            var data = bookService.GetAll();
-            return View(data);
+            var book = bookService.GetAll();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                book = book.Where(s => s.Title!.Contains(searchString));
+            }
+            return View(book.OrderBy(s => s.Title).ToList());
         }
     }
 }

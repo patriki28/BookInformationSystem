@@ -48,26 +48,26 @@ namespace BookInformationSystem.Repositories.Implementation
 
         public IEnumerable<Book> GetAll()
         {
-            var data = (from book in context.Book
-                        join author in context.Author
-                        on book.AuthorId equals author.Id
-                        join publisher in context.Publisher on book.PubhlisherId equals publisher.Id
-                        join genre in context.Genre on book.GenreId equals genre.Id
+            var books = from b in context.Book
+                        join a in context.Author on b.AuthorId equals a.Id
+                        join p in context.Publisher on b.PubhlisherId equals p.Id
+                        join g in context.Genre on b.GenreId equals g.Id
                         select new Book
                         {
-                            Id = book.Id,
-                            AuthorId = book.AuthorId,
-                            GenreId = book.GenreId,
-                            Isbn = book.Isbn,
-                            PubhlisherId = book.PubhlisherId,
-                            Title = book.Title,
-                            TotalPages = book.TotalPages,
-                            GenreName = genre.Name,
-                            AuthorName = author.AuthorName,
-                            PublisherName = publisher.PublisherName
-                        }
-                        ).ToList();
-            return data;
+                            Id = b.Id,
+                            AuthorId = b.AuthorId,
+                            GenreId = b.GenreId,
+                            Isbn = b.Isbn,
+                            PubhlisherId = b.PubhlisherId,
+                            Title = b.Title,
+                            TotalPages = b.TotalPages,
+                            GenreName = g.Name,
+                            AuthorName = a.AuthorName,
+                            PublisherName = p.PublisherName
+                        };
+
+
+            return books;
         }
 
         public bool Update(Book model)

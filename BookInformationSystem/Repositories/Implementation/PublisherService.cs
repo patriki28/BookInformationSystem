@@ -48,7 +48,8 @@ namespace BookInformationSystem.Repositories.Implementation
 
         public IEnumerable<Publisher> GetAll()
         {
-            return context.Publisher.ToList();
+            var publisher = from m in context.Publisher select m;
+            return publisher;
         }
 
         public bool Update(Publisher model)

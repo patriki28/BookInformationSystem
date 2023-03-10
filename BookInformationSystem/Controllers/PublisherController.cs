@@ -67,11 +67,16 @@ namespace BookInformationSystem.Controllers
             return RedirectToAction("GetAll");
         }
 
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll(string searchString)
         {
 
-            var data = service.GetAll();
-            return View(data);
+            var publisher = service.GetAll();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                publisher = publisher.Where(s => s.PublisherName!.Contains(searchString));
+            }
+            return View(publisher.OrderBy(s => s.PublisherName).ToList());
         }
     }
 }
