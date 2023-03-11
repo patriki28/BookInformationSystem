@@ -13,32 +13,41 @@
 <body>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar-->
-        <div class="border-end" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom">
+        <div class="border-end bg-dark" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom text-white">
                 <img class="logo-img" src="~/images/logo.png" alt="PAID logo" width="50" height="50">
                 Mr.Bookie
             </div>
-            <div class="list-group list-group-flush ">
-                <a class="nav-link text-black" href="/Book/GetAll">
+            <div class="list-group list-group-flush">
+                <a class="nav-link text-white"" href="/Book/GetAll">
                     <i class="bi bi-book-fill p-2"></i>
                     Books
                 </a>
-                <a class="nav-link text-black" href="/Author/GetAll">
+                <a class="nav-link text-white""  href="/Author/GetAll">
                     <i class="bi bi-pen-fill p-2"></i>
-                    Author</a>
-                <a class="nav-link text-black" href="/Publisher/GetAll">
+                    Author
+                </a>
+                <a class="nav-link text-white"" href="/Publisher/GetAll">
                     <i class="bi bi-people-fill p-2"></i>
                     Publisher
                 </a>
-                <a class="nav-link text-black" href="/Genre/GetAll">
+                <a class="nav-link text-white" href="/Genre/GetAll">
                     <i class="bi bi-bookmark-fill p-2"></i>
-                    Genre</a>
-                <a class="nav-link text-black" onclick="return window.confirm('Are you sure you want to logout?')" asp-area="" asp-controller="Home" asp-action="Logout">
-                    <i class="bi bi-door-open-fill p-2"></i>
-                    Logout</a>
+                    Genre
+                </a>
+                <div class="btn btn-danger m-2" style="position: absolute; bottom:0;">
+                    <a class=" nav-link text-white" onclick="return window.confirm('Are you sure you want to logout?')" href="/Home/Logout">
+                        <i class="bi bi-door-open-fill p-2"></i>
+                        Logout
+                    </a>
 
+                </div>
+                
             </div>
+           
+            
         </div>
+
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
             <!-- Top navigation-->

@@ -2,58 +2,72 @@
 @{
 }
 
-<div class="container-fluid pt-3">
-
-
+ <div class="container pt-5">
     <div class="row p-3">
         <div class="col-8 text-left">
-            <h3>Books</h3>
+                <h3>Books</h3>
         </div>
-        <div class="col-4 text-right">
-            <a class="btn btn-dark" href="/Book/Add">+ Add More</a>
+        <div class="col-4 text-right ml-auto">
+                <a class="btn btn-dark" href="/Book/Add">+ Add More</a>
         </div>
         <form asp-controller="Book" asp-action="GetAll">
-            <p>
-                <input type="text" name="SearchString" />
-                <input type="submit" value="Search" />
-            </p>
+            <div class="input-group m-2">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search" name="SearchString">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </div>
         </form>
     </div>
-
-            <div class="table-responsive">
-                <table class="table table-stripped table-bordered table-dark ">
-                    <thead>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-dark">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Genre</th>
+                    <th>Isbn</th>
+                    <th>Total Pages</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model)
+                    {
                         <tr>
-                            <th>Title</th>
-                            <th>Genre</th>
-                            <th>Isbn</th>
-                            <th>Total Pages</th>
-                            <th>Author</th>
-                            <th>Publisher</th>
-                            <th>Action</th>
+                            <td>@item.Title</td>
+                            <td>@item.GenreName</td>
+                            <td>@item.Isbn</td>
+                            <td>@item.TotalPages</td>
+                            <td>@item.AuthorName</td>
+                            <td>@item.PublisherName</td>
 
+                            <td>
+                                <a class="btn btn-success" href="/Book/Update?id=@item.Id"><i class="bi bi-pen"></i></a>
+                                <a class="btn btn-danger" onclick="return window.confirm('Are you sure?')" href="/Book/Delete?id=@item.Id"><i class="bi bi-trash"></i></a>
+
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Title</td>
-                                <td>@item.GenreName</td>
-                                <td>@item.Isbn</td>
-                                <td>@item.TotalPages</td>
-                                <td>@item.AuthorName</td>
-                                <td>@item.PublisherName</td>
-
-                                <td>
-                                    <a class="btn btn-success" href="/Book/Update?id=@item.Id"><i class="bi bi-pen"></i></a>
-                                    <a class="btn btn-danger" onclick="return window.confirm('Are you sure?')" href="/Book/Delete?id=@item.Id"><i class="bi bi-trash"></i></a>
-
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
- 
+                    }
+            </tbody>
+        </table>
+        <br />
+        @if (ViewBag.Page > 0)
+        {
+            <a href="@Url.Action("GetAll", new { page = ViewBag.Page - 1 })"
+           class="btn btn-default">
+                &laquo; Prev
+            </a>
+        }
+        @if (ViewBag.Page < ViewBag.MaxPage)
+        {
+            <a href="@Url.Action("GetAll", new { page = ViewBag.Page + 1 })"
+           class="btn btn-default">
+                Next &raquo;
+            </a>
+        }
+        @if (!Model.Any())
+        {
+            <p class="text-muted text-center mt-4">No authors found.</p>
+        }
+    </div>
+</div>

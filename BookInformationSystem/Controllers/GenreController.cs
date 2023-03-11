@@ -67,7 +67,7 @@ namespace BookInformationSystem.Controllers
             return RedirectToAction("GetAll");
         }
 
-        public async Task<IActionResult>  GetAll(string searchString)
+        public async Task<IActionResult>  GetAll(string searchString, int page = 0)
         {
 
             var genre = service.GetAll();
@@ -76,7 +76,18 @@ namespace BookInformationSystem.Controllers
                 genre = genre.Where(s => s.Name!.Contains(searchString));
             }
 
-            return View(genre.OrderBy(s => s.Name).ToList());
+
+            const int PageSize = 3;
+
+            var count = genre.Count();
+
+            var data = genre.Skip(page * PageSize).Take(PageSize).OrderBy(s => s.Name).ToList();
+
+            this.ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+
+            this.ViewBag.Page = page;
+
+            return View(data);
         }
     }
 }

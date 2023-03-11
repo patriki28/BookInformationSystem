@@ -67,7 +67,7 @@ namespace BookInformationSystem.Controllers
             return RedirectToAction("GetAll");
         }
 
-        public async Task<IActionResult> GetAll(string searchString)
+        public async Task<IActionResult> GetAll(string searchString, int page = 0)
         {
 
             var publisher = service.GetAll();
@@ -76,7 +76,17 @@ namespace BookInformationSystem.Controllers
             {
                 publisher = publisher.Where(s => s.PublisherName!.Contains(searchString));
             }
-            return View(publisher.OrderBy(s => s.PublisherName).ToList());
+
+            const int PageSize = 3;
+
+            var count = publisher.Count();
+
+            var data = publisher.Skip(page * PageSize).Take(PageSize).OrderBy(s => s.PublisherName).ToList();
+
+            this.ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+
+            this.ViewBag.Page = page;
+            return View(data);
         }
     }
 }

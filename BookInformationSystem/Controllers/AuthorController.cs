@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PagedList;
+
 
 namespace BookInformationSystem.Controllers
 {
@@ -68,7 +70,7 @@ namespace BookInformationSystem.Controllers
             return RedirectToAction("GetAll");
         }
 
-        public async Task<IActionResult> GetAll( string searchString)
+        public async Task<IActionResult> GetAll( string searchString, int page = 0)
         {
             var author = service.GetAll();
 
@@ -77,9 +79,18 @@ namespace BookInformationSystem.Controllers
                 author = author.Where(s => s.AuthorName!.Contains(searchString));
             }
 
-          
+            const int PageSize = 3;
 
-            return View(author.OrderBy(s => s.AuthorName).ToList());
+            var count = author.Count();
+
+            var data = author.Skip(page * PageSize).Take(PageSize).OrderBy(s => s.AuthorName).ToList();
+
+            this.ViewBag.MaxPage = (count / PageSize) - (count % PageSize == 0 ? 1 : 0);
+
+            this.ViewBag.Page = page;
+
+
+            return View(data);
         }
     }
 }

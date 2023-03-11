@@ -8,43 +8,58 @@
         <div class="col-8 text-left">
             <h3>Author</h3>
         </div>
-        <div class="col-4 text-right">
+        <div class="col-4 text-right ml-auto">
             <a class="btn btn-dark" href="/Author/Add">+ Add More</a>
         </div>
         <form asp-controller="Author" asp-action="GetAll">
-            <p>
-                <input type="text" name="SearchString" />
-                <input type="submit" value="Search" />
-            </p>
+            <div class="input-group m-2">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search" name="SearchString">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </div>
         </form>
     </div>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped table-dark">
-                    <thead>
-                        <tr>
-                            <th>Author Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.AuthorName</td>
-                                <td>
-                                    <a class="btn btn-success" href="/Author/Update?id=@item.Id"><i class="bi bi-pen"></i> </a>
-                                    <a class="btn btn-danger" onclick="return window.confirm('Are you sure?')" href="/Author/Delete?id=@item.Id">
-                                        <i class="bi bi-trash"></i>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-dark">
+            <thead>
+                <tr>
+                    <th>Author Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.AuthorName</td>
+                        <td>
+                            <a class="btn btn-success" href="/Author/Update?id=@item.Id"><i class="bi bi-pen"></i> </a>
+                            <a class="btn btn-danger" onclick="return window.confirm('Are you sure?')" href="/Author/Delete?id=@item.Id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+        @if (ViewBag.Page > 0)
+        {
+            <a href="@Url.Action("GetAll", new { page = ViewBag.Page - 1 })"
+           class="btn btn-default">
+                &laquo; Prev
+            </a>
+        }
+        @if (ViewBag.Page < ViewBag.MaxPage)
+        {
+            <a href="@Url.Action("GetAll", new { page = ViewBag.Page + 1 })"
+           class="btn btn-default">
+                Next &raquo;
+            </a>
+        }
+        @if (!Model.Any())
+        {
+            <p class="text-muted text-center mt-4">No authors found.</p>
+        }
+    </div>
+</div>
 
-                                    </a>
-
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-       
-            </div>
-                
-
-        </div>
